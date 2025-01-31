@@ -1,8 +1,4 @@
 from collections import defaultdict, Counter
-'''
-    ToDo:
-        - filter out invalid siteswaps
-'''
 
 class Siteswap_predictor:
     def __init__(self, max_balls: int):
@@ -154,6 +150,18 @@ class Siteswap_predictor:
     #         print("Normalized", normalized_siteswap)
     #         print("________________")
 
+    '''
+        Checks if a siteswap is valid using the permutation test.
+    '''
+    def is_valid_siteswap(self, siteswap):
+        p = len(siteswap)
+        phi_s = set()
+        
+        for i in range(p):
+            phi_s.add((i + siteswap[i]) % p)
+        
+        return len(phi_s) == p
+
     
     def predict_possible_siteswaps(self, catch_history):
         repeating_patterns = self.__find_repeating_patterns_with_all_numbers(catch_history)
@@ -162,6 +170,10 @@ class Siteswap_predictor:
         for pattern_dict in repeating_patterns:
             pattern = pattern_dict["pattern"]
             possible_siteswap = self.__find_possible_siteswap(pattern)
+            
+            if possible_siteswap is None or not self.is_valid_siteswap(possible_siteswap):
+                continue
+
             normalized_siteswap = self.__normalize_siteswap(possible_siteswap)
             possible_siteswaps.append(normalized_siteswap)
             # print("---------------------------")
