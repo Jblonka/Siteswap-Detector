@@ -1,6 +1,5 @@
 import argparse
 import cv2
-import time
 
 from ball_tracking.ball_detector import Ball_Detector
 from catch_detector import Catch_Detector
@@ -41,8 +40,6 @@ args = get_launch_arguments()
 video_path = args["video_path"]
 max_balls = args["max_balls"]
 output_path = args["output_path"]
-
-start_time = time.time()
 
 cap = cv2.VideoCapture(video_path)
 ball_tracker = Ball_Tracker(max_balls)

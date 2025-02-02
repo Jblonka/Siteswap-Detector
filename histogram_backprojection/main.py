@@ -1,6 +1,5 @@
 import argparse
 import cv2
-import time
 
 from ball_tracking.ball_detector import Ball_Detector
 from ball_tracking.ball_tracker import Ball_Tracker

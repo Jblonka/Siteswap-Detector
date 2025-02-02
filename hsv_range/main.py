@@ -3,7 +3,6 @@ os.environ["LOKY_MAX_CPU_COUNT"] = "8"  # Set this to the number of cores you wa
 
 import argparse
 import cv2
-import time
 
 from ball_tracking.ball_detector import Ball_Detector
 from ball_tracking.ball_tracker import Ball_Tracker
@@ -70,7 +69,7 @@ hsv_upper = (91, 128, 255)
 
 left_hand = Hand(0)
 right_hand = Hand(1)
-hand_detector2 = Hand_Detector()
+hand_detector = Hand_Detector()
 hand_tracker = Hand_Tracker(left_hand, right_hand)
 catch_detector = Catch_Detector(max_balls, left_hand, right_hand)
 
@@ -111,7 +110,7 @@ while True:
 
     # detect hands
     hands_center_id = []
-    hand_detections = hand_detector2.detect_hands(original_frame)
+    hand_detections = hand_detector.detect_hands(original_frame)
     for x, y in hand_detections:
         cv2.circle(frame, (x, y), 15, (0, 0, 255), -1)
 
